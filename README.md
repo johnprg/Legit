@@ -18,9 +18,9 @@ For the proof of concept, we will use Wikipedia as the “fact” source and als
 
 #### Methodology
 This will require leveraging some existing tech to:
-Do Semantic Analysis: Identify assertions of fact in the target text.
-Lookup and amend the Fact Repo: Do a vector search for matching assertions in the repo.
-Store Metadata:  Build and store metadata for the article in the dataset used by the classifier.
+1. Do Semantic Analysis: Identify assertions of fact in the target text.
+2. Lookup and amend the Fact Repo: Do a vector search for matching assertions in the repo.
+3. Store Metadata:  Build and store metadata for the article in the dataset used by the classifier.
 The classifier itself will deliver a binary decision “legit” or “misinformative” based on the metadata, with a level of confidence for each classification.  I will compare different classifier models performance on the POC corpus.
 
 #### Expected results
