@@ -16,6 +16,7 @@ Having access to a reasonably accurate real time measure of an article’s legit
 Can we classify a body of text (article, posting, email) as legitimate or misinformative?
 
 #### Data Sources
+
 ##### Kaggle
 FakeNews - large dataset - 83500 samples - from https://www.kaggle.com/datasets/vishakhdapat/fake-news-detection
 Base - smaller dataset - 9900 samples - from https://www.kaggle.com/datasets/nitishjolly/news-detection-fake-or-real-dataset
@@ -26,6 +27,7 @@ Both datasets contain text samples which have been labelled as 'Real' or 'Fake'.
 1. Train on existing datasets of news articles from two distinct sources, which labelled articles as "fake" or "real"
 2. Experiment with several different types of classifiers, doing parameter searches on each to find the most accurate model of each type
 3. Test the resulting winning models of each type with a sample of the other dataset as a test set.
+
 
 #### Expected results
 I expect that this will be similar to a spam filter.  It will perform well for articles which are more fact based and be heavily biased toward labelling articles as “misinformative”.
