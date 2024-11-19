@@ -18,8 +18,15 @@ Can we classify a body of text (article, posting, email) as legitimate or misinf
 #### Data Sources
 
 ##### Kaggle
-FakeNews - large dataset - 83500 samples - from https://www.kaggle.com/datasets/vishakhdapat/fake-news-detection
-Base - smaller dataset - 9900 samples - from https://www.kaggle.com/datasets/nitishjolly/news-detection-fake-or-real-dataset
+FakeNews 
+* large dataset 
+* 83500 samples 
+* from https://www.kaggle.com/datasets/vishakhdapat/fake-news-detection
+
+Base 
+* smaller dataset 
+* 9900 samples 
+* from https://www.kaggle.com/datasets/nitishjolly/news-detection-fake-or-real-dataset
 
 Both datasets contain text samples which have been labelled as 'Real' or 'Fake'.
 
@@ -37,38 +44,82 @@ I am unsure about the availability of the existing tech described above, so that
 The results were suprisingly encouraging!  All of the resulting models for both datasets and multiple sample sizes scored 90% or better accuracy.  
 
 | Model         | Size | Dataset  | Best Score | Fit Time   |
-|---------------|------|----------|------------|------------|
+|:---------------|------|:----------|------------|:------------|
 | Bayes         | 1980 | Base     | 0.974747   | 3.714640   |
 | Bayes         | 2088 | FakeNews | 0.949102   | 3.897800   |
 | Bayes         | 4177 | FakeNews | 0.958696   | 7.474342   |
-| Bayes         | 4950 | Base     | 0.975505   | 9.496118   |
+| Bayes         | 4950 | Base     | __0.975505__   | 9.496118   |
 | Bayes         | 8354 | FakeNews | 0.957055   | 15.505293  |
 | Bayes         | 9900 | Base     | 0.973737   | 20.876189  |
 |               |      |          |            |            |
 | Decision Tree | 1980 | Base     | 0.950758   | 3.763134   |
 | Decision Tree | 2088 | FakeNews | 0.911377   | 4.198360   |
 | Decision Tree | 4177 | FakeNews | 0.909918   | 8.145076   |
-| Decision Tree | 4950 | Base     | 0.981566   | 9.747898   |
+| Decision Tree | 4950 | Base     | __0.981566__   | 9.747898   |
 | Decision Tree | 8354 | FakeNews | 0.950764   | 16.745201  |
 | Decision Tree | 9900 | Base     | 0.976768   | 20.956969  |
 |               |      |          |            |            |
 | Logistic      | 1980 | Base     | 0.995581   | 6.365607   |
 | Logistic      | 2088 | FakeNews | 0.989820   | 3.731460   |
 | Logistic      | 4177 | FakeNews | 0.996409   | 8.011122   |
-| Logistic      | 4950 | Base     | 0.998990   | 10.535047  |
+| Logistic      | 4950 | Base     | __0.998990__   | 10.535047  |
 | Logistic      | 8354 | FakeNews | 0.997606   | 16.900789  |
 | Logistic      | 9900 | Base     | 0.998737   | 20.922753  |
 
+As a further step, I used a random sample from each dataset as a test set for the models trained on the other set.  The results of those cross tests were also very encouraging.
+
+##### Trained with Base Model - Tested with Large
+
+| Model          | Training Score | Cross Test Score |
+|:---------------|:---------------|:-----------------|
+| Logistic       | 0.995581       | 0.948288         |
+| Decision Tree  | 0.950758       | 0.874551         |
+| Bayes          | 0.974747       | 0.923629        |
+
+
+##### Trained with Large Model - Tested with Base
+| Model          | Training Score | Cross Test Score |
+|:---------------|:---------------|:-----------------|
+| Logistic       | 0.997606       | 0.997374         |
+| Decision Tree  | 0.950764       | 0.893939         |
+| Bayes          | 0.957055       | 0.983030         |
+
+The relatively poor performance of the Decision Tree models in both cross tests is symptomatic of overtraining.  Because of the outstanding results for the Large model trained Logistic Regression, I'm using that as my classifier.
+
+##### Parameters
+Logistic Regression
+Trained on Large model sample of 8354 records
+Stemmed and Lemmatized (stop_words=stopwords.words('english'))
+TfidfVectorizer(max_features=500)
+C = 10.0
+max_iter = 10000
+penalty = 'l1'
+solver = 'liblinear'
+
+Training Accuracy: 99.76%
+Cross Test:        99.74%
+
+##### Performance
+![Performance Graphs](./images/model_comparison.png)
+
+Surprisingly, the accuracy did not increase signficantly with sample size, except for the overfit decision tree.
+
+![Confusion Matrix](./images/confusion_matrix.png)
 
 
 #### Next steps
-What suggestions do you have for next steps?
+For my next steps, I would like to:
+1. Augment this classifier with assertion marking and checking as originally planned.
+2. Explore spam filter style metadata analysis.  
+3. Experiment with scraped text from social media as a test set and compare the results.
+4. Dive deeper into understanding the implications of the model.
 
 #### Outline of project
 
-- [Link to notebook 1]()
-- [Link to notebook 2]()
-- [Link to notebook 3]()
-
+- [Primary Notebook](./Legit.ipynb)
+- [Experiments with spaCy](./Parsing.ipynb)
 
 ##### Contact and Further Information
+John Rae-Grant
+john@theartofwork.com
+linkedin.com/in/johnraegrant
