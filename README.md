@@ -102,9 +102,10 @@ Cross Test:        99.74%
 ##### Performance
 ![Performance Graphs](./images/model_comparison.png)
 
-Surprisingly, the accuracy did not increase signficantly with sample size, except for the overfit decision tree.
+Surprisingly, the accuracy did not increase signficantly with sample size, except for the overfit decision tree.  The confusion matrix for the winning model is shown below.  This is near perfect classification, which I will be interested to test against other posts in later steps.
 
 ![Confusion Matrix](./images/confusion_matrix.png)
+
 
 
 #### Next steps
@@ -117,9 +118,11 @@ For my next steps, I would like to:
 #### Outline of project
 
 - [Primary Notebook](./Legit.ipynb)
-- [Experiments with spaCy](./Parsing.ipynb)
+- [Data Sources](./data)
+- [Github Repo](https://github.com/johnprg/Legit)
 
 ##### Contact and Further Information
 John Rae-Grant
 john@theartofwork.com
 linkedin.com/in/johnraegrant
+github.com/johnprg
