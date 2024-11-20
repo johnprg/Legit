@@ -122,7 +122,7 @@ For my next steps, I would like to:
 - [Github Repo](https://github.com/johnprg/Legit)
 
 ##### Contact and Further Information
-John Rae-Grant
-john@theartofwork.com
-linkedin.com/in/johnraegrant
+John Rae-Grant <br>
+john@theartofwork.com <br>
+linkedin.com/in/johnraegrant <br>
 github.com/johnprg
