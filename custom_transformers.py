@@ -12,8 +12,14 @@ class LemmatizerStemmer(BaseEstimator, TransformerMixin):
         return self
     
     def transform(self, X):
-        return [
-            ' '.join([self.lemmatizer.lemmatize(self.stemmer.stem(word)) 
-                      for word in text.split()])
-            for text in X
-        ]
+        # Ensure X is a list of strings
+        print(f"Input to transform: {X}")  # Debugging statement
+        if isinstance(X, list):
+            return [
+                ' '.join([self.lemmatizer.lemmatize(self.stemmer.stem(word)) 
+                        for word in text.split()])
+                for text in X
+            ]
+        else:
+            raise ValueError("Input to LemmatizerStemmer.transform must be a list of strings")
+

@@ -19,7 +19,9 @@ app = FastAPI()
 @app.post("/predict")
 async def predict(data: InputData):
     # Extract features from the request
-    features = [[data.feature1]]  # Adapt for your model's input shape
+    features = [data.text]  # Adapt for your model's input shape
+    print(f"Input to pipeline: {features}")  # Debugging line
+
     # Generate prediction
     prediction = classifier.predict(features)
     print(f'classification:{prediction}')
