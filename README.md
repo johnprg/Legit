@@ -1,23 +1,23 @@
-### Legit or Misinformative
+# Legitimate or Misinformative
 
 **Author**
 John Rae-Grant
 
-#### Executive summary
+## Problem Statement
 
 The research question I sought to answer is "can we accurately classify a body of text (article, posting, email) as legitimate or misinformative?" I had originally intended to base this determination on metadata and semantic analysis, especially the fact density and provenance of the text, and to use Wikipedia as the source data.  In my research, I found that the labelling of articles on wikipedia was much more nuanced and subjective, and that the semantic parsing was too in depth of a specialized area to dive into.  Instead, I found several datasets of articles which had been labelled as "fake" or "real", and focused on building different NLP classifiers to see what level of accuracy could be achieved in matching the given labels.
 
-#### Rationale
+### Rationale
 There are few questions as important today as “should I believe this article”.  Indeed, with most people getting their “information” not from vetted sources, but from social media, the traditional methods of distinguishing trusted from untrusted sources have largely disappeared.  
 
-Having access to a reasonably accurate real time measure of an article’s legitimacy could increase public media savvy, slow down viral spread of misinformation, and even potentially guide identification of deliberate disinformers.
+Having access to a reasonably accurate real-time measure of an article’s legitimacy could increase public media savvy, slow down viral spread of misinformation, and even potentially guide identification of deliberate disinformers.
 
-#### Research Question
+### Research Question
 Can we classify a body of text (article, posting, email) as legitimate or misinformative?
 
-#### Data Sources
+## Data Acquisition
 
-##### Kaggle
+### Source Datasets from Kaggle
 FakeNews 
 * large dataset 
 * 83500 samples 
@@ -30,18 +30,25 @@ Base
 
 Both datasets contain text samples which have been labelled as 'Real' or 'Fake'.
 
-#### Methodology
-1. Train on existing datasets of news articles from two distinct sources, which labelled articles as "fake" or "real"
-2. Experiment with several different types of classifiers, doing parameter searches on each to find the most accurate model of each type
+### Data Preprocessing/Preparation
+
+#### Preparation
+Both datasets were extremely clean and simple, with just "text" and "label" fields.  I checked for Nans and missing values to find any inconsistencies.
+
+The datasets were used separately to train single layer models using a 20% holdback for testing, and the results were compared and then cross-validated with sample sets from the other database
+
+## Modeling
+We experimented with several different types of single layer classifiers, doing parameter searches on each to find the most accurate model of each type
+
+Following the selection of single layer models, we built and evaluated three diffent Multi-Level Neural Networks (MNNs) models.  The comparative results 
 3. Test the resulting winning models of each type with a sample of the other dataset as a test set.
 
 
-#### Expected results
+## Expected results
 I expect that this will be similar to a spam filter.  It will perform well for articles which are more fact based and be heavily biased toward labelling articles as “misinformative”.
-I am unsure about the availability of the existing tech described above, so that is a large x factor in putting this together.
 
-#### Actual Results
-The results were suprisingly encouraging!  All of the resulting models for both datasets and multiple sample sizes scored 90% or better accuracy.  
+## Results
+The results were suprisingly encouraging!  All of the resulting single layer models for both datasets and multiple sample sizes scored 90% or better accuracy.  
 
 | Model         | Size | Dataset  | Best Score | Fit Time   |
 |:---------------|------|:----------|------------|:------------|
@@ -74,7 +81,7 @@ As a further step, I used a random sample from each dataset as a test set for th
 |:---------------|:---------------|:-----------------|
 | Logistic       | 0.995581       | 0.948288         |
 | Decision Tree  | 0.950758       | 0.874551         |
-| Bayes          | 0.974747       | 0.923629        |
+| Bayes          | 0.974747       | 0.923629         |
 
 
 ##### Trained with Large Model - Tested with Base
@@ -84,7 +91,7 @@ As a further step, I used a random sample from each dataset as a test set for th
 | Decision Tree  | 0.950764       | 0.893939         |
 | Bayes          | 0.957055       | 0.983030         |
 
-The relatively poor performance of the Decision Tree models in both cross tests is symptomatic of overtraining.  Because of the outstanding results for the Large model trained Logistic Regression, I'm using that as my classifier.
+The relatively poor performance of the Decision Tree models in both cross tests is symptomatic of overtraining.  Because of the outstanding results for the Large model trained Logistic Regression, I'm using that as my single layer classifier.
 
 ##### Parameters
 Logistic Regression
@@ -99,21 +106,12 @@ solver = 'liblinear'
 Training Accuracy: 99.76%
 Cross Test:        99.74%
 
-##### Performance
+##### Single Layer Performance
 ![Performance Graphs](./images/model_comparison.png)
 
-Surprisingly, the accuracy did not increase signficantly with sample size, except for the overfit decision tree.  The confusion matrix for the winning model is shown below.  This is near perfect classification, which I will be interested to test against other posts in later steps.
+Surprisingly, the accuracy did not increase signficantly with sample size, except for the overfit decision tree.  The confusion matrix for the winning model is shown below.  This is near perfect classification.
 
 ![Confusion Matrix](./images/confusion_matrix.png)
-
-
-
-#### Next steps
-For my next steps, I would like to:
-1. Augment this classifier with assertion marking and checking as originally planned.
-2. Explore spam filter style metadata analysis.  
-3. Experiment with scraped text from social media as a test set and compare the results.
-4. Dive deeper into understanding the implications of the model.
 
 #### Outline of project
 
