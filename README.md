@@ -3,6 +3,20 @@
 **Author**
 John Rae-Grant
 
+## TL;DR
+
+### Research Question
+Can we classify a body of text (article, posting, email) as legitimate or misinformative?
+
+Several single-layer classifiers and multi-level neural networks were built, tuned and evaluated.  The results are described below.
+
+The most successful models were then loaded into a web app "Legitimizer" which allows the user to either submit new articles for classification or see the classification results for example articles from the source datasets.  
+
+[Legitimizer UI](https://huggingface.co/spaces/johnprg/Legitimizer)
+[Legitimizer App Source Repo](https://huggingface.co/spaces/johnprg/Legitimizer/tree/main)
+[Primary Notebook](./Legit.ipynb)
+
+
 ## Problem Statement
 
 The research question I sought to answer is "can we accurately classify a body of text (article, posting, email) as legitimate or misinformative?" I had originally intended to base this determination on metadata and semantic analysis, especially the fact density and provenance of the text, and to use Wikipedia as the source data.  In my research, I found that the labelling of articles on wikipedia was much more nuanced and subjective, and that the semantic parsing was too in depth of a specialized area to dive into.  Instead, I found several datasets of articles which had been labelled as "fake" or "real", and focused on building different NLP classifiers to see what level of accuracy could be achieved in matching the given labels.
@@ -11,9 +25,6 @@ The research question I sought to answer is "can we accurately classify a body o
 There are few questions as important today as “should I believe this article”.  Indeed, with most people getting their “information” not from vetted sources, but from social media, the traditional methods of distinguishing trusted from untrusted sources have largely disappeared.  
 
 Having access to a reasonably accurate real-time measure of an article’s legitimacy could increase public media savvy, slow down viral spread of misinformation, and even potentially guide identification of deliberate disinformers.
-
-### Research Question
-Can we classify a body of text (article, posting, email) as legitimate or misinformative?
 
 ## Data Acquisition
 
