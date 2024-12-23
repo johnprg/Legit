@@ -46,20 +46,21 @@ Both datasets contain text samples which have been labelled as 'Real' or 'Fake'.
 #### Preparation
 Both datasets were extremely clean and simple, with just "text" and "label" fields.  I checked for Nans and missing values to find any inconsistencies.
 
-The datasets were used separately to train single layer models using a 20% holdback for testing, and the results were compared and then cross-validated with sample sets from the other database
+The datasets were used separately to train single layer models using a 20% holdback for testing, and the results were compared and then cross-validated with sample sets from the other database.
+
+
 
 ## Modeling
 We experimented with several different types of single layer classifiers, doing parameter searches on each to find the most accurate model of each type
 
-Following the selection of single layer models, we built and evaluated three diffent Multi-Level Neural Networks (MNNs) models.  The comparative results 
-3. Test the resulting winning models of each type with a sample of the other dataset as a test set.
+Following the selection of single layer models, we built and evaluated three diffent Multi-Level Neural Networks (MNNs) models.  The comparative results are shown below.
 
 
 ## Expected results
-I expect that this will be similar to a spam filter.  It will perform well for articles which are more fact based and be heavily biased toward labelling articles as “misinformative”.
+I expected that the Legitimizer would perform similarly to a spam filter.  It will perform well for articles which are more fact based and be heavily biased toward labelling articles as “misinformative”.
 
-## Results
-The results were suprisingly encouraging!  All of the resulting single layer models for both datasets and multiple sample sizes scored 90% or better accuracy.  
+## Results of Single Layer Models
+The results of even the single layer models were suprisingly encouraging!  All of the resulting single layer models for both datasets and multiple sample sizes scored 90% or better accuracy.  
 
 | Model         | Size | Dataset  | Best Score | Fit Time   |
 |:---------------|------|:----------|------------|:------------|
@@ -123,6 +124,10 @@ Cross Test:        99.74%
 Surprisingly, the accuracy did not increase signficantly with sample size, except for the overfit decision tree.  The confusion matrix for the winning model is shown below.  This is near perfect classification.
 
 ![Confusion Matrix](./images/confusion_matrix.png)
+
+## Results of MNN experimentation
+
+
 
 #### Outline of project
 
