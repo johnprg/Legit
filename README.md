@@ -6,9 +6,9 @@ John Rae-Grant
 ## TL;DR
 
 ### Research Question
-Can we classify a body of text (article, posting, email) as legitimate or misinformative?
+*Can we classify a body of text (article, posting, email) as legitimate or misinformative?*
 
-Several single-layer classifiers and multi-level neural networks were built, tuned and evaluated.  The results are described below.
+Several shallow model classifiers and multi-level neural networks were built, tuned and evaluated.  The results are described below.
 
 The most successful models were then loaded into a web app "Legitimizer" which allows the user to either submit new articles for classification or see the classification results for example articles from the source datasets.  
 
@@ -19,7 +19,8 @@ The most successful models were then loaded into a web app "Legitimizer" which a
 
 ## Problem Statement
 
-The research question I sought to answer is "can we accurately classify a body of text (article, posting, email) as legitimate or misinformative?" I had originally intended to base this determination on metadata and semantic analysis, especially the fact density and provenance of the text, and to use Wikipedia as the source data.  In my research, I found that the labelling of articles on wikipedia was much more nuanced and subjective, and that the semantic parsing was too in depth of a specialized area to dive into.  Instead, I found several datasets of articles which had been labelled as "fake" or "real", and focused on building different NLP classifiers to see what level of accuracy could be achieved in matching the given labels.
+The research question I sought to answer is 
+*"can we accurately classify a body of text (article, posting, email) as legitimate or misinformative?"* I had originally intended to base this determination on metadata and semantic analysis, especially the fact density and provenance of the text, and to use Wikipedia as the source data.  In my research, I found that the labelling of articles on wikipedia was much more nuanced and subjective, and that the semantic parsing was too in depth of a specialized area to dive into.  Instead, I found several datasets of articles which had been labelled as "fake" or "real", and focused on building different Natural Language Processing (NLP) based classifiers to see what level of accuracy could be achieved in matching the given labels.
 
 ### Rationale
 There are few questions as important today as “should I believe this article”.  Indeed, with most people getting their “information” not from vetted sources, but from social media, the traditional methods of distinguishing trusted from untrusted sources have largely disappeared.  
@@ -46,21 +47,21 @@ Both datasets contain text samples which have been labelled as 'Real' or 'Fake'.
 #### Preparation
 Both datasets were extremely clean and simple, with just "text" and "label" fields.  I checked for Nans and missing values to find any inconsistencies.
 
-The datasets were used separately to train single layer models using a 20% holdback for testing, and the results were compared and then cross-validated with sample sets from the other database.
+The datasets were used separately to train shallow models using a 20% holdback for testing, and the results were compared and then cross-validated with sample sets from the other database.
 
 
 
 ## Modeling
-We experimented with several different types of single layer classifiers, doing parameter searches on each to find the most accurate model of each type
+I experimented with several different types of shallow model classifiers, doing parameter searches on each to find the most accurate model of each type.
 
-Following the selection of single layer models, we built and evaluated three diffent Multi-Level Neural Networks (MNNs) models.  The comparative results are shown below.
+Following the selection of shallow model models, we built and evaluated three diffent Multi-Level Neural Networks (MNNs) models.  The comparative results are shown below.
 
 
 ## Expected results
 I expected that the Legitimizer would perform similarly to a spam filter.  It will perform well for articles which are more fact based and be heavily biased toward labelling articles as “misinformative”.
 
-## Results of Single Layer Models
-The results of even the single layer models were suprisingly encouraging!  All of the resulting single layer models for both datasets and multiple sample sizes scored 90% or better accuracy.  
+## Results of Shallow Models
+The results of even the shallow model models were suprisingly encouraging!  All of the resulting shallow models for both datasets and multiple sample sizes scored 90% or better accuracy.  
 
 | Model         | Size | Dataset  | Best Score | Fit Time   |
 |:---------------|------|:----------|------------|:------------|
@@ -103,7 +104,7 @@ As a further step, I used a random sample from each dataset as a test set for th
 | Decision Tree  | 0.950764       | 0.893939         |
 | Bayes          | 0.957055       | 0.983030         |
 
-The relatively poor performance of the Decision Tree models in both cross tests is symptomatic of overtraining.  Because of the outstanding results for the Large model trained Logistic Regression, I'm using that as my single layer classifier.
+The relatively poor performance of the Decision Tree models in both cross tests is symptomatic of overtraining.  Because of the outstanding results for the Large model trained Logistic Regression, I'm using that as my shallow model classifier.
 
 ##### Parameters
 Logistic Regression
@@ -127,12 +128,31 @@ Surprisingly, the accuracy did not increase signficantly with sample size, excep
 
 ## Results of MNN experimentation
 
+In a quest for even greater accuracy and greater resilience to more recent articles, I used the same, larger dataset to train three different types of Multi-Level Neural Networks (MNNs). These were 
+1. Long Short-Term Memory (LSTM)
+2. Gated Recurrent Unit (GRU)
+3. 1D Convolutional Layer (Conv1D)
+These have the advantage over shallow model of capturing sequences of words as features.  
+
+### MNN Accuracy and Loss
+![MNN Acuracy](./images/MNN_accuracy.png)
+![MNN Loss](./images/MNN_loss.png)
+
+On the initial training set of 2.5% of the FakeNews dataset, the Conv1D model won out over time, and was still improving its validation accuracy after 10 epochs (retraining runs), having achieved a 97% accuracy and declining loss of less than 9%.
+
+The GRU model setup was likely flawed, as evidenced by its failure to improve over time or with a larger training set.  However, because Conv1d surpassed 99% validation accuracy, I decided not to correct these issues and to go ahead and use the optimized Conv1D model in the Legitimizer app.
+
+A subsequent run of 10% of the FakeNews dataset over 20 epochs showed Conv1D maximizing its accuracy at an astounding 99% validation accuracy with mimimized loss after only three epochs.
+
+Testing with real world, more recent news stories (using the Legitimizer app), showed more nuance and greater resiliency, where the single Logistic regression model was more rigid and binary in its classification, suggesting a decreasing applicability over time.
 
 
 #### Outline of project
 
 - [Primary Notebook](./Legit.ipynb)
 - [Data Sources](./data)
+- [Result Images](./images)
+- [Result Data](./results)
 - [Github Repo](https://github.com/johnprg/Legit)
 
 ##### Contact and Further Information
