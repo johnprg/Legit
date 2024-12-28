@@ -16,6 +16,12 @@ The most successful models were then loaded into a web app "Legitimizer" which a
 [Legitimizer App Source Repo](https://huggingface.co/spaces/johnprg/Legitimizer/tree/main)
 [Primary Notebook](./Legit.ipynb)
 
+### Next Steps
+To further strengthen the Legitimizer, I'd advocate the following next steps:
+1. Add heatmap coding to give some idea of which word sequences had the most impact on the classification.
+2. Investigate deeper neural networks.
+3. Retrain with more recent, deeper datasets such as the bluesky posts.
+4. Integrate RAG techniques from the Averitech submissions.
 
 ## Problem Statement
 
@@ -145,7 +151,6 @@ The GRU model setup was likely flawed, as evidenced by its failure to improve ov
 A subsequent run of 10% of the FakeNews dataset over 20 epochs showed Conv1D maximizing its accuracy at an astounding 99% validation accuracy with mimimized loss after only three epochs.
 
 Testing with real world, more recent news stories (using the Legitimizer app), showed more nuance and greater resiliency, where the single Logistic regression model was more rigid and binary in its classification, suggesting a decreasing applicability over time.
-
 
 #### Outline of project
 
