@@ -12,7 +12,7 @@ Several shallow model classifiers and multi-level neural networks were built, tu
 
 The most successful models were then loaded into a web app "Legitimizer" which allows the user to either submit new articles for classification or see the classification results for example articles from the source datasets.  
 
-[Legitimizer UI](https://huggingface.co/spaces/johnprg/Legitimizer)
+[Legitimizer UI](https://johnprg-legitimizer.hf.space/)
 [Legitimizer App Source Repo](https://huggingface.co/spaces/johnprg/Legitimizer/tree/main)
 [Primary Notebook](./Legit.ipynb)
 
